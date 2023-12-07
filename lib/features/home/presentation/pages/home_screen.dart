@@ -6,16 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/app_images.dart';
 
 class HomeScreen extends StatelessWidget {
-  //LoginEntity loginEntity;
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(HomeRemoteDto())..getBrands()..getCategories()..getProducts(),
+      create: (context) => HomeCubit(HomeRemoteDto())
+        ..getBrands()
+        ..getCategories()
+        ..getProducts(),
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
           if (state is HomeLoadingState) {
@@ -35,14 +38,51 @@ class HomeScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: Image.asset(
-                AppImages.logo,
-                width: 66.w,
-                color: AppColors.primary,
-                height: 22.h,
+              leading: Padding(
+                padding: EdgeInsets.only(left: 15.w),
+                child: Image.asset(
+                  AppImages.logo,
+                  width: 66.w,
+                  color: AppColors.primary,
+                  height: 22.h,
+                ),
               ),
               backgroundColor: Colors.white,
               elevation: 0,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Badge(
+                    alignment: Alignment.topCenter,
+                    label: Text(
+                        HomeCubit.get(context).numOfItemsInCart.toString()),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.cart);
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                        size: 30,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+              // actions: [
+              // IconButton(
+              //   onPressed: () {
+              //     CacheHelper.removeData("User");
+              //     Navigator.pushNamedAndRemoveUntil(
+              //         context, Routes.login, (route) => false);
+              //   },
+              //   icon: Icon(
+              //     Icons.logout,
+              //     color: AppColors.primary,
+              //     size: 20.sp,
+              //   ),
+              // ),
+              // ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: HomeCubit.get(context).bottomNavIndex,
@@ -51,22 +91,30 @@ class HomeScreen extends StatelessWidget {
               },
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: Icon(
+                    Icons.home,
+                  ),
                   label: "",
                   backgroundColor: AppColors.primary,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.category_outlined),
+                  icon: Icon(
+                    Icons.category_outlined,
+                  ),
                   label: "",
                   backgroundColor: AppColors.primary,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border),
+                  icon: Icon(
+                    Icons.favorite_border,
+                  ),
                   label: "",
                   backgroundColor: AppColors.primary,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
+                  icon: Icon(
+                    Icons.person,
+                  ),
                   label: "",
                   backgroundColor: AppColors.primary,
                 ),

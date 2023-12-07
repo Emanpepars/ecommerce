@@ -4,6 +4,7 @@ import 'package:ecommerce/features/home/data/repositories/home_data_repo.dart';
 import 'package:ecommerce/features/home/domain/entities/brands_entity.dart';
 import 'package:ecommerce/features/home/domain/entities/product_entity.dart';
 import 'package:ecommerce/features/home/domain/repositories/home_domain_repo.dart';
+import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_brands_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_product_use_case.dart';
@@ -29,6 +30,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   int bottomNavIndex = 0;
   int numOfItemsInCart = 0;
+  bool fav = false ;
   List<Widget> tabs = const [
     HomeTab(),
     CategoriesTab(),
@@ -38,7 +40,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<DataEntity> categories = [];
   List<ProductDataEntity> products = [];
-
   List<BrandEntity> brands = [
     BrandEntity(
         name: 'Apple',
@@ -112,6 +113,11 @@ class HomeCubit extends Cubit<HomeStates> {
     AppImages.slider3
   ];
 
+  void changeFav() {
+    emit(HomeInitState());
+    fav = !fav;
+    emit(HomeAddToFavState());
+  }
   void changeBottomNav(int index) {
     emit(HomeInitState());
     bottomNavIndex = index;
@@ -136,7 +142,7 @@ class HomeCubit extends Cubit<HomeStates> {
     result.fold((l) {
       emit(HomeGetProductsErrorState(l));
     }, (r) {
-      products = r.data ??[];
+      products = r.data ?? [];
       emit(HomeGetProductsSuccessState(r));
     });
   }
@@ -151,6 +157,19 @@ class HomeCubit extends Cubit<HomeStates> {
     }, (r) {
       categories = r.data ?? [];
       emit(HomeGetCategoriesSuccessState(r));
+    });
+  }
+
+  void addCart(String productId) async {
+    emit(HomeAddToCartLoadingState());
+    AddToCartUseCase addCartUseCase = AddToCartUseCase(homeDomainRepo);
+    var result = await addCartUseCase.call(productId);
+    result.fold((l) {
+      print(l);
+      emit(HomeAddToCartErrorState(l));
+    }, (r) {
+      numOfItemsInCart = r.numOfCartItems ?? 0;
+      emit(HomeAddToCartSuccessState(r));
     });
   }
 }

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/error/failures.dart';
-import 'package:ecommerce/features/login_screen/domain/entities/login_entity.dart';
-import 'package:ecommerce/features/login_screen/domain/repositories/login_domain_repo.dart';
+import 'package:ecommerce/features/login/domain/entities/login_entity.dart';
+import 'package:ecommerce/features/login/domain/repositories/login_domain_repo.dart';
 
 class LoginUseCase {
   LoginDomainRepo loginDomainRepo;

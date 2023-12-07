@@ -25,6 +25,7 @@ class ProductDetailsScreen extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
+
         actions: [
           IconButton(
               onPressed: () {},
@@ -34,12 +35,13 @@ class ProductDetailsScreen extends StatelessWidget {
                 color: AppColors.primary,
               )),
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart,
-                size: 30,
-                color: AppColors.primary,
-              )),
+            onPressed: () {},
+            icon: const Icon(
+              Icons.shopping_cart,
+              size: 30,
+              color: AppColors.primary,
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(

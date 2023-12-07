@@ -10,7 +10,7 @@ class CategoryOrBrandEntity extends Equatable {
   List<DataEntity>? data;
 
   @override
-  List<Object?> get props => [results,data];
+  List<Object?> get props => [results, data];
 }
 
 class DataEntity extends Equatable {
@@ -27,5 +27,5 @@ class DataEntity extends Equatable {
   String? image;
 
   @override
-  List<Object?> get props => [id,name,slug,image];
+  List<Object?> get props => [id, name, slug, image];
 }

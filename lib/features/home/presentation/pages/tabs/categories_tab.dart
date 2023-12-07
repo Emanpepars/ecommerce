@@ -16,7 +16,7 @@ class CategoriesTab extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Padding(
-          padding:  EdgeInsets.symmetric(vertical: 8.h ,horizontal: 8.w),
+          padding:  EdgeInsets.symmetric(horizontal: 8.w),
           child: Column(
             children: [
               Expanded(

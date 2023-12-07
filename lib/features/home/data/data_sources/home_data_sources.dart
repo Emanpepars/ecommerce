@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce/core/api/end_points.dart';
 import 'package:ecommerce/core/error/failures.dart';
 import 'package:ecommerce/core/utils/app_constants.dart';
+import 'package:ecommerce/core/utils/cache_helper.dart';
+import 'package:ecommerce/features/home/data/models/cart_response_model.dart';
 import 'package:ecommerce/features/home/data/models/category_or_brands_model.dart';
 import 'package:ecommerce/features/home/data/models/product_model.dart';
 
@@ -12,17 +14,21 @@ abstract class HomeDataSources {
   Future<Either<Failures, CategoryOrBrandsModel>> getBrands();
 
   Future<Either<Failures, ProductModel>> getProducts();
+
+  Future<Either<Failures, CartResponse>> addToCart(productId);
+
 }
 
 class HomeRemoteDto implements HomeDataSources {
   Dio dio = Dio();
+
   @override
-  Future<Either<Failures, CategoryOrBrandsModel>> getCategories() async{
+  Future<Either<Failures, CategoryOrBrandsModel>> getCategories() async {
     try {
       var response =
           await dio.get("${AppConstants.BASEURL}${EndPoints.getAllCategories}");
       CategoryOrBrandsModel model =
-      CategoryOrBrandsModel.fromJson(response.data);
+          CategoryOrBrandsModel.fromJson(response.data);
       return Right(model);
     } catch (e) {
       return Left(ServerFailures(e.toString()));
@@ -30,30 +36,45 @@ class HomeRemoteDto implements HomeDataSources {
   }
 
   @override
-  Future<Either<Failures, CategoryOrBrandsModel>> getBrands()async {
+  Future<Either<Failures, CategoryOrBrandsModel>> getBrands() async {
     try {
       var response =
-         await dio.get("${AppConstants.BASEURL}${EndPoints.getAllBrands}");
+          await dio.get("${AppConstants.BASEURL}${EndPoints.getAllBrands}");
       CategoryOrBrandsModel model =
           CategoryOrBrandsModel.fromJson(response.data);
-     return Right(model);
+      return Right(model);
     } catch (e) {
       return Left(ServerFailures(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failures, ProductModel>> getProducts() async{
+  Future<Either<Failures, ProductModel>> getProducts() async {
     try {
       var response =
           await dio.get("${AppConstants.BASEURL}${EndPoints.getAllProducts}");
-      ProductModel model =
-      ProductModel.fromJson(response.data);
+      ProductModel model = ProductModel.fromJson(response.data);
       return Right(model);
     } catch (e) {
       return Left(ServerFailures(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failures, CartResponse>> addToCart(productId) async {
+    var userToken = CacheHelper.getData("User");
+    try {
+      var response = await dio.post(
+          "${AppConstants.BASEURL}${EndPoints.addToCart}",
+          options: Options(headers: {"token": userToken}),
+          data: {"productId": productId});
+      CartResponse model = CartResponse.fromJson(response.data);
+      return Right(model);
+    } catch (e) {
+      return Left(ServerFailures(e.toString()));
+    }
+  }
+
 }
 
 class HomeLocalDto implements HomeDataSources {
@@ -74,4 +95,12 @@ class HomeLocalDto implements HomeDataSources {
     // TODO: implement getProducts
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failures, CartResponse>> addToCart(productId) {
+    // TODO: implement addToCart
+    throw UnimplementedError();
+  }
+
+
 }

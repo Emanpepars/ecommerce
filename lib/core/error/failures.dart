@@ -1,5 +1,6 @@
-class Failures{
+class Failures {
   String message;
+
   Failures(this.message);
 
   @override
@@ -8,12 +9,10 @@ class Failures{
   }
 }
 
-class ServerFailures extends Failures{
+class ServerFailures extends Failures {
   ServerFailures(super.message);
-
 }
 
-class CachedFailures extends Failures{
+class CachedFailures extends Failures {
   CachedFailures(super.message);
-
 }

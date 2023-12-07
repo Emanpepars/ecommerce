@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../domain/entities/product_entity.dart';
+import '../manager/cubit.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductDataEntity model;
@@ -45,18 +46,20 @@ class ProductItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
-                          color: const Color(0xff06004F)),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: const Color(0xff06004F),
+                      ),
                     ),
                     Text(
                       model.description ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
-                          color: const Color(0xff06004F)),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: const Color(0xff06004F),
+                      ),
                     ),
                     SizedBox(
                       height: 8.h,
@@ -66,9 +69,10 @@ class ProductItem extends StatelessWidget {
                         Text(
                           model.price.toString(),
                           style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
-                              color: const Color(0xff06004F)),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
+                            color: const Color(0xff06004F),
+                          ),
                         ),
                         SizedBox(
                           width: 16.w,
@@ -76,14 +80,15 @@ class ProductItem extends StatelessWidget {
                         Text(
                           (model.price ?? 50 - 50).toString(),
                           style: GoogleFonts.poppins(
-                              decoration: TextDecoration.lineThrough,
-                              decorationColor:
-                                  const Color(0xff004182).withOpacity(.6)
-                              // Replace with your desired color
-                              ,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 11.sp,
-                              color: const Color(0xff004182).withOpacity(.6)),
+                            decoration: TextDecoration.lineThrough,
+                            decorationColor:
+                                const Color(0xff004182).withOpacity(.6)
+                            // Replace with your desired color
+                            ,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 11.sp,
+                            color: const Color(0xff004182).withOpacity(.6),
+                          ),
                         ),
                       ],
                     ),
@@ -95,15 +100,16 @@ class ProductItem extends StatelessWidget {
                         Text(
                           'Review (${model.ratingsAverage})',
                           style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: const Color(0xff06004F)),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                            color: const Color(0xff06004F),
+                          ),
                         ),
                         Icon(
                           Icons.star,
                           color: const Color(0xffFDD835),
                           size: 15.h,
-                        )
+                        ),
                       ],
                     )
                   ],
@@ -117,17 +123,16 @@ class ProductItem extends StatelessWidget {
               alignment: Alignment.topRight,
               child: InkWell(
                 onTap: () {
-                  // fav = !fav;
-                  // setState(() {});
+                  HomeCubit.get(context).changeFav();
                 },
                 child: CircleAvatar(
                   radius: 15.r,
                   backgroundColor: Colors.white,
-                  child: const Center(
-                    child: Icon(Icons.favorite_border),
-                    // child: fav
-                    //     ? Image.asset('assets/images/Vectorhart_full.png')
-                    //     : Image.asset('assets/images/heart.png'),
+                  child: Center(
+                    //child: Icon(Icons.favorite_border),
+                    child: HomeCubit.get(context).fav
+                        ? Image.asset('assets/images/vector_hart_full.png')
+                        : Image.asset('assets/images/heart.png'),
                   ),
                 ),
               ),
@@ -139,7 +144,7 @@ class ProductItem extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: InkWell(
                 onTap: () {
-                  // HomeCubit.get(context).addTCart(model.id ?? "");
+                  HomeCubit.get(context).addCart(model.id ?? "");
                 },
                 child: CircleAvatar(
                   radius: 15.r,

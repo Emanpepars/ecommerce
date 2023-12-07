@@ -29,25 +29,33 @@ class HomeTab extends StatelessWidget {
                     child: TextField(
                       decoration: InputDecoration(
                         prefixIcon: Container(
-                            margin: EdgeInsets.only(
-                                left: 24.07.w,
-                                top: 13.h,
-                                bottom: 13.h,
-                                right: 7.93.w),
-                            child: Image.asset(
-                              AppImages.search,
-                              width: 24.w,
-                              height: 24.h,
-                            )),
+                          margin: EdgeInsets.only(
+                            left: 24.07.w,
+                            top: 13.h,
+                            bottom: 13.h,
+                            right: 7.93.w,
+                          ),
+                          child: Image.asset(
+                            AppImages.search,
+                            width: 24.w,
+                            height: 24.h,
+                          ),
+                        ),
                         hintText: 'what do you search for?',
-                        hintStyle: poppins14W300(color: AppColors.hintColor),
+                        hintStyle: poppins14W300(
+                          color: AppColors.hintColor,
+                        ),
                         filled: true,
-                        contentPadding: const EdgeInsets.only(top: 20.0),
+                        contentPadding: const EdgeInsets.only(
+                          top: 20.0,
+                        ),
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.r),
                           borderSide: const BorderSide(
-                              color: AppColors.primary, width: 1),
+                            color: AppColors.primary,
+                            width: 1,
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.r),
@@ -57,7 +65,9 @@ class HomeTab extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.r),
                           borderSide: const BorderSide(
-                              color: AppColors.primary, width: 1),
+                            color: AppColors.primary,
+                            width: 1,
+                          ),
                         ),
                       ),
                     ),
@@ -66,12 +76,13 @@ class HomeTab extends StatelessWidget {
                     width: 24.w,
                   ),
                   GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        AppImages.cart,
-                        width: 24.w,
-                        height: 24.h,
-                      )),
+                    onTap: () {},
+                    child: Image.asset(
+                      AppImages.cart,
+                      width: 24.w,
+                      height: 24.h,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -79,14 +90,15 @@ class HomeTab extends StatelessWidget {
               height: 16.h,
             ),
             ImageSlideshow(
-                height: 200.h,
-                width: 398.w,
-                isLoop: true,
-                indicatorColor: AppColors.primary,
-                indicatorBackgroundColor: Colors.white,
-                children: HomeCubit.get(context).sliders.map((i) {
-                  return Image.asset(i);
-                }).toList()),
+              height: 200.h,
+              width: 398.w,
+              isLoop: true,
+              indicatorColor: AppColors.primary,
+              indicatorBackgroundColor: Colors.white,
+              children: HomeCubit.get(context).sliders.map((i) {
+                return Image.asset(i);
+              }).toList(),
+            ),
             SizedBox(
               height: 24.h,
             ),
@@ -102,7 +114,7 @@ class HomeTab extends StatelessWidget {
                   Text(
                     "view all",
                     style: poppins12W400(),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -127,12 +139,13 @@ class HomeTab extends StatelessWidget {
                               width: 100.w,
                               height: 100.h,
                               child: CircleAvatar(
-                                  radius: 50.0,
-                                  backgroundImage: NetworkImage(
-                                      HomeCubit.get(context)
-                                              .categories[index]
-                                              .image ??
-                                          "")),
+                                radius: 50.0,
+                                backgroundImage: NetworkImage(
+                                    HomeCubit.get(context)
+                                            .categories[index]
+                                            .image ??
+                                        ""),
+                              ),
                             ),
                             SizedBox(
                               height: 8.h,
@@ -182,9 +195,7 @@ class HomeTab extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 50.0,
                                 backgroundImage: NetworkImage(
-                                    HomeCubit.get(context)
-                                            .brands[index]
-                                            .image ),
+                                    HomeCubit.get(context).brands[index].image),
                               ),
                             ),
                             SizedBox(
