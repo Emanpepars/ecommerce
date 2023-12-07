@@ -15,9 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(HomeRemoteDto()
-        ..getCategories()
-        ..getBrands()),
+      create: (context) => HomeCubit(HomeRemoteDto())..getBrands()..getCategories()..getProducts(),
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
           if (state is HomeLoadingState) {
@@ -36,23 +34,7 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Badge(
-                    alignment: Alignment.topCenter,
-                    //label: const Text("4"),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.shopping_cart,
-                        size: 30,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              automaticallyImplyLeading: false,
               title: Image.asset(
                 AppImages.logo,
                 width: 66.w,
@@ -65,7 +47,7 @@ class HomeScreen extends StatelessWidget {
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: HomeCubit.get(context).bottomNavIndex,
               onTap: (value) {
-                HomeCubit.get(context).changeNavIndex(value);
+                HomeCubit.get(context).changeBottomNav(value);
               },
               items: const [
                 BottomNavigationBarItem(
