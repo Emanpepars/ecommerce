@@ -1,8 +1,10 @@
 import 'package:ecommerce/core/error/failures.dart';
+import 'package:ecommerce/features/home/domain/entities/product_entity.dart';
 
+import '../../data/models/cart_response_model.dart';
 import '../../domain/entities/category_or_brand_entity.dart';
 
-class HomeStates {}
+abstract class HomeStates {}
 
 class HomeInitState extends HomeStates {}
 
@@ -31,5 +33,33 @@ class HomeGetBrandsErrorState extends HomeStates {
 
   HomeGetBrandsErrorState(this.failures);
 }
+
+class HomeGetProductsSuccessState extends HomeStates {
+  ProductEntity productEntity;
+
+  HomeGetProductsSuccessState(this.productEntity);
+}
+
+class HomeGetProductsErrorState extends HomeStates {
+  Failures failures;
+
+  HomeGetProductsErrorState(this.failures);
+}
+
+class HomeAddToCartLoadingState extends HomeStates {}
+
+class HomeAddToCartSuccessState extends HomeStates {
+  CartResponse addToCartEntity;
+
+  HomeAddToCartSuccessState(this.addToCartEntity);
+}
+
+class HomeAddToCartErrorState extends HomeStates {
+  Failures failures;
+
+  HomeAddToCartErrorState(this.failures);
+}
+
+class HomeAddToFavState extends HomeStates {}
 
 class ChangeBottomNavBar extends HomeStates {}
